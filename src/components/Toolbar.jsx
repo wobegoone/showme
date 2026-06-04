@@ -6,8 +6,8 @@ export function Toolbar({ onGenerate, onSave, onLoad, onReset, onLoadSample }) {
       <button type="button" onClick={onLoadSample} title="载入示例">
         <Sparkles size={16} /> 示例
       </button>
-      <button type="button" className="primary-action" onClick={onGenerate} title="生成模板">
-        <Wand2 size={16} /> 生成
+      <button type="button" className="primary-action" onClick={onGenerate} title="生成图文文章">
+        <Wand2 size={16} /> 生成图文
       </button>
       <button type="button" onClick={onSave} title="保存草稿">
         <FileDown size={16} /> 保存

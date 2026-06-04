@@ -4,6 +4,7 @@ import { ArticleCanvas } from "./components/ArticleCanvas";
 import { TemplatePanel } from "./components/TemplatePanel";
 import { Toolbar } from "./components/Toolbar";
 import { readFileAsText, readImageAsDataUrl, validateDocumentFile } from "./lib/files";
+import { composeArticleFromMaterials } from "./lib/composer";
 import { createId } from "./lib/ids";
 import { parseDocumentText } from "./lib/parser";
 import { loadDraft, saveDraft } from "./lib/storage";
@@ -96,17 +97,19 @@ export default function App() {
   }
 
   function handleGenerate() {
-    if (sourceBlocks.length === 0) {
-      setStatus("请先上传可解析的文档。");
+    if (sourceBlocks.length === 0 && imageAssets.length === 0) {
+      setStatus("请先上传文档或图片素材。");
       return;
     }
 
-    const nextTemplates = createTemplates(sourceBlocks, imageAssets);
+    const composedBlocks = composeArticleFromMaterials(currentBlocks.length ? currentBlocks : sourceBlocks, imageAssets);
+    const nextTemplates = createTemplates(composedBlocks, []);
+    setSourceBlocks(composedBlocks);
     setTemplates(nextTemplates);
     setSelectedTemplateId(nextTemplates[0].id);
     setCurrentBlocks(nextTemplates[0].blocks);
     setStyle(nextTemplates[0].style);
-    setStatus("已生成 3 套模板，可在右侧选择。");
+    setStatus("已根据素材生成一篇图文稿，并生成 3 套模板。");
   }
 
   function handleLoadSample() {

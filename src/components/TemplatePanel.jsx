@@ -12,7 +12,7 @@ export function TemplatePanel({
         <h2>生成方案</h2>
       </div>
       <div className="template-list">
-        {templates.length === 0 ? <p className="muted-text">生成后展示 3 套模板。</p> : null}
+        {templates.length === 0 ? <p className="muted-text">生成图文后展示 3 套模板。</p> : null}
         {templates.map((template) => (
           <button
             key={template.id}

@@ -22,7 +22,7 @@ export function ArticleCanvas({
         }}
       >
         {blocks.length === 0 ? (
-          <div className="empty-state">上传文档和图片后，点击生成查看排版效果。</div>
+          <div className="empty-state">上传文档或图片素材后，点击生成图文查看公众号文章效果。</div>
         ) : (
           blocks.map((block, index) => (
             <EditableBlock
