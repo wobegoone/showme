@@ -6,7 +6,10 @@ const draft = {
   imageAssets: [],
   templates: [],
   selectedTemplateId: "fresh-news",
-  currentBlocks: [{ id: "title-2", type: "title", text: "标题" }],
+  currentBlocks: [
+    { id: "title-2", type: "title", text: "标题" },
+    { id: "icon-1", type: "icon", icon: "BadgeCheck", label: "重点" }
+  ],
   style: {
     themeColor: "#2f7d68",
     fontScale: 1,

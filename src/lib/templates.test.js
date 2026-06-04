@@ -34,4 +34,16 @@ describe("createTemplates", () => {
       "第二段"
     ]);
   });
+
+  it("keeps inserted icon blocks in the generated article flow", () => {
+    const iconBlocks = [
+      blocks[0],
+      { id: "icon-1", type: "icon", icon: "Sparkles", label: "亮点提示" },
+      blocks[1]
+    ];
+    const [template] = createTemplates(iconBlocks, []);
+
+    expect(template.blocks.map((block) => block.type)).toEqual(["title", "icon", "paragraph"]);
+    expect(template.blocks[1]).toMatchObject({ type: "icon", icon: "Sparkles", label: "亮点提示" });
+  });
 });

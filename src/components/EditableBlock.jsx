@@ -1,4 +1,25 @@
-import { ArrowDown, ArrowUp, Trash2 } from "lucide-react";
+import {
+  ArrowDown,
+  ArrowUp,
+  BadgeCheck,
+  CalendarDays,
+  Gift,
+  Lightbulb,
+  Megaphone,
+  Quote,
+  Sparkles,
+  Trash2
+} from "lucide-react";
+
+const ICONS = {
+  BadgeCheck,
+  CalendarDays,
+  Gift,
+  Lightbulb,
+  Megaphone,
+  Quote,
+  Sparkles
+};
 
 export function EditableBlock({
   block,
@@ -37,6 +58,26 @@ export function EditableBlock({
           <div className="missing-image">图片素材缺失</div>
         )}
       </figure>
+    );
+  }
+
+  if (block.type === "icon") {
+    const Icon = ICONS[block.icon] || Sparkles;
+    return (
+      <div className="editable-block icon-block">
+        {controls}
+        <span className="article-icon">
+          <Icon size={18} />
+        </span>
+        <span
+          className="icon-label"
+          contentEditable
+          suppressContentEditableWarning
+          onBlur={(event) => onTextChange(event.currentTarget.textContent || "")}
+        >
+          {block.label}
+        </span>
+      </div>
     );
   }
 

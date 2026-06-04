@@ -140,8 +140,30 @@ export default function App() {
 
   function handleTextChange(blockId, text) {
     setCurrentBlocks((blocks) =>
-      blocks.map((block) => (block.id === blockId ? { ...block, text } : block))
+      blocks.map((block) => {
+        if (block.id !== blockId) return block;
+        if (block.type === "icon") return { ...block, label: text };
+        return { ...block, text };
+      })
     );
+  }
+
+  function handleInsertIcon(option) {
+    const iconBlock = {
+      id: createId("icon"),
+      type: "icon",
+      icon: option.icon,
+      label: option.label
+    };
+
+    setCurrentBlocks((blocks) => {
+      if (blocks.length === 0) return [iconBlock];
+      const next = [...blocks];
+      const insertIndex = Math.min(2, next.length);
+      next.splice(insertIndex, 0, iconBlock);
+      return next;
+    });
+    setStatus(`已插入「${option.label}」图标块，可在正文中移动或编辑。`);
   }
 
   function handleMoveBlock(from, to) {
@@ -192,6 +214,7 @@ export default function App() {
         status={status}
         onDocumentUpload={handleDocumentUpload}
         onImageUpload={handleImageUpload}
+        onInsertIcon={handleInsertIcon}
       />
       <div className="workbench">
         <Toolbar
